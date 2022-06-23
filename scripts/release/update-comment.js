@@ -4,7 +4,7 @@ const proc = require('child_process');
 const semver = require('semver');
 const run = (cmd, ...args) => proc.execFileSync(cmd, args, { encoding: 'utf8' }).trim();
 
-const gitStatus = run('git', 'status', '--porcelain', '-uno', 'contracts/**/*.sol');
+const gitStatus = proc.execFileSync('git', ['status', '--porcelain', '-uno', 'contracts/**/*.sol']);
 if (gitStatus.length > 0) {
   console.error('Contracts directory is not clean');
   process.exit(1);
